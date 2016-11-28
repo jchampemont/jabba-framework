@@ -1,0 +1,4 @@
+rootProject.name = 'jabba-framework'
+include 'jabba-persistence'
+
+project(':jabba-persistence').projectDir = "$rootDir/jabba-persistence" as File
