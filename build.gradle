@@ -1,5 +1,6 @@
 allprojects {
     apply plugin: 'maven'
+    apply plugin: 'jacoco'
 
     group = 'com.jeanchampemont.jabba'
     version = '0.1.0-SNAPSHOT'
@@ -27,8 +28,47 @@ subprojects {
         }
     }
 
+    jacocoTestReport {
+        reports {
+            html.enabled = true
+            xml.enabled = true
+            csv.enabled = false
+        }
+    }
+
     dependencies {
         testCompile group: 'junit', name: 'junit', version: '4.12'
         testCompile group: 'org.assertj', name: 'assertj-core', version: '3.5.2'
+    }
+}
+
+repositories {
+    jcenter()
+}
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.7.1'
+    }
+}
+apply plugin: 'com.github.kt3k.coveralls'
+
+coveralls {
+    sourceDirs = files(subprojects.sourceSets.main.allSource.srcDirs).files.absolutePath
+}
+
+task jacocoRootReport(type: org.gradle.testing.jacoco.tasks.JacocoReport) {
+    dependsOn = subprojects.test
+    sourceDirectories = files(subprojects.sourceSets.main.allSource.srcDirs)
+    classDirectories = files(subprojects.sourceSets.main.output)
+    executionData = files(subprojects.jacocoTestReport.executionData)
+    reports {
+        html.enabled = true
+        xml.enabled = true
+        csv.enabled = false
+        xml.destination = "${buildDir}/reports/jacoco/test/jacocoTestReport.xml"
     }
 }
