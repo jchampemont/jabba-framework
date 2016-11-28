@@ -67,6 +67,19 @@ public class BaseEntityTest {
     }
 
     @Test
+    public void testNotEqualDifferentId() {
+        EntityA a = new EntityA();
+        a.setId(44L);
+        a.setValue("I am not equal to b");
+
+        EntityA b = new EntityA();
+        b.setId(45L);
+        b.setValue("I am not equal to a");
+
+        assertThat(a.equals(b)).isFalse();
+    }
+
+    @Test
     public void testNotEqualSomethingElse() {
         EntityA a = new EntityA();
         a.setId(44L);
