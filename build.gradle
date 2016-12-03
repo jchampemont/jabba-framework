@@ -19,13 +19,9 @@ subprojects {
         mavenCentral()
     }
 
-    buildscript {
-        repositories {
-            mavenCentral()
-            maven {
-                url "https://plugins.gradle.org/m2/"
-            }
-        }
+    dependencies {
+        testCompile group: 'junit', name: 'junit', version: '4.12'
+        testCompile group: 'org.assertj', name: 'assertj-core', version: '3.5.2'
     }
 
     jacocoTestReport {
@@ -36,9 +32,50 @@ subprojects {
         }
     }
 
-    dependencies {
-        testCompile group: 'junit', name: 'junit', version: '4.12'
-        testCompile group: 'org.assertj', name: 'assertj-core', version: '3.5.2'
+    task sourcesJar(type: Jar, dependsOn: classes) {
+        classifier = 'sources'
+        from sourceSets.main.allSource
+    }
+
+    task javadocJar(type: Jar, dependsOn: javadoc) {
+        classifier = 'javadoc'
+        from javadoc.destinationDir
+    }
+
+    artifacts {
+        archives sourcesJar
+        archives javadocJar
+    }
+
+
+    apply plugin: 'git-repo'
+    apply plugin: 'maven-publish'
+
+    gitPublishConfig{
+        org = "jchampemont"
+        repo = "maven-repository"
+        branch = "gh-pages"
+    }
+
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                from components.java
+
+                artifact sourcesJar {
+                    classifier "sources"
+                }
+
+                artifact javadocJar {
+                    classifier "javadoc"
+                }
+            }
+        }
+        repositories {
+            maven {
+                url "file://${gitPublishConfig.home}/${gitPublishConfig.org}/${gitPublishConfig.repo}/maven2"
+            }
+        }
     }
 }
 
@@ -52,6 +89,7 @@ buildscript {
     }
     dependencies {
         classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.7.1'
+        classpath group: 'com.layer', name: 'gradle-git-repo-plugin', version: '2.0.2'
     }
 }
 apply plugin: 'com.github.kt3k.coveralls'

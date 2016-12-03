@@ -33,7 +33,7 @@ public interface Identifiable<PK extends Serializable> {
     /**
      * Set the unique identifier of this object
      * 
-     * @param id
+     * @param id unique identifier of this object
      */
     void setId(PK id);
 }
