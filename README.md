@@ -15,6 +15,8 @@ on modularity.
 
 **DISCLAIMER**: This is more of a toy framework than a real framework. Use it at your own risks!
 
+Latest javadoc available here: https://jchampemont.github.io/javadoc/jabba-persistence/master/
+
 How to use?
 -------------------------------------------------
 The jar files are available on the Github [releases](https://github.com/jchampemont/jabba-framework/releases)
