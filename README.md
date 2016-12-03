@@ -4,8 +4,6 @@ Jabba Framework
 [![Coverage Status](https://coveralls.io/repos/jchampemont/jabba-framework/badge.svg?branch=master&service=github)](https://coveralls.io/github/jchampemont/jabba-framework?branch=master)
 [![GitHub issues](https://img.shields.io/github/issues/jchampemont/jabba-framework.svg?maxAge=2592000)](https://github.com/jchampemont/jabba-framework/issues)
 [![GitHub release](https://img.shields.io/github/release/jchampemont/jabba-framework.svg?maxAge=2592000)](https://github.com/jchampemont/jabba-framework/releases)
-[![Jitpack .jar](https://jitpack.io/v/jchampemont/jabba-framework.svg)](https://jitpack.io/#jchampemont/jabba-framework)
-
 
 What is it?
 -------------------------------------------------
@@ -14,6 +12,20 @@ Jabba "Framework" is a collection of utility/technical classes.
 I found myself always copy/pasting some basic classes every time I start a new personal  project 
 (and trust me, it happens a lot haha). This project is just a place to gather those classes, with an attempt
 on modularity.
+
+**DISCLAIMER**: This is more of a toy framework than a real framework. Use it at your own risks!
+
+How to use?
+-------------------------------------------------
+The jar files are available on the Github [releases](https://github.com/jchampemont/jabba-framework/releases)
+or on my Github [maven repository](https://github.com/jchampemont/maven-repository).
+
+With my Github maven repository configured, you can depend on any Jabba subproject with the
+following artifact coordinates:
+
+- `groupId`: `com.jeanchampemont.jabba`
+- `artifactId`: `jabba-subproject` (example: `jabba-persistence`)
+- `version`: `0.1.0` (latest)
 
 Contributors
 -------------------------------------------------
