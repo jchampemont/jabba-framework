@@ -4,3 +4,6 @@ script: ./gradlew build check jacocoTestReport
 after_success:
   - ./gradlew jacocoRootReport coveralls
   - ./publish.sh jabba-persistence
+cache:
+  directories:
+    - $HOME/.gradle/
