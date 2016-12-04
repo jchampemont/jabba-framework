@@ -55,6 +55,7 @@ subprojects {
         org = "jchampemont"
         repo = "maven-repository"
         branch = "gh-pages"
+        gitUrl = "https://${ghToken}@${provider}/${org}/${repo}"
     }
 
     publishing {

@@ -1,14 +1,23 @@
 #!/bin/bash
 
 if [ "$TRAVIS_REPO_SLUG" == "jchampemont/jabba-framework" ] && [ "$TRAVIS_JDK_VERSION" == "oraclejdk8" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
+  git config --global user.email "travis@travis-ci.org"
+  git config --global user.name "travis-ci"
+
+  if [ -n "$TRAVIS_TAG" ]; then
+    echo -e "Publishing maven artifacts...\n"
+    ./gradlew -PghToken=$GH_TOKEN publish
+    cd $HOME/.gitRepos/jchampemont/maven-repository
+    git add .
+    git commit -m "Publish artifacts of $1 $TRAVIS_TAG on sucessful travis build $TRAVIS_BUILD_NUMBER"
+    cd -
+  fi
 
   echo -e "Publishing javadoc...\n"
 
   cp -R $1/build/docs/javadoc $HOME/$1-javadoc-latest
 
   cd $HOME
-  git config --global user.email "travis@travis-ci.org"
-  git config --global user.name "travis-ci"
   git clone --quiet --branch=gh-pages https://${GH_TOKEN}@github.com/jchampemont/javadoc gh-pages > /dev/null
 
   mkdir -p gh-pages/$1
